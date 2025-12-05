@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="estadisticas.EstadisticasController"
+      prefWidth="850" prefHeight="500">
+
+    <Label text="Estadísticas de Fichajes"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <BarChart fx:id="barChart" prefWidth="800" prefHeight="450">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" label="Fecha" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="Minutos trabajados" />
+        </yAxis>
+    </BarChart>
+
+</VBox>
+
+
+
+
+
+

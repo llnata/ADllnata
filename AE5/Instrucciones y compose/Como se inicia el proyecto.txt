@@ -1,0 +1,2 @@
+Entras a la ruta del archivo y ejecutas en cmd
+mvn clean javafx:run

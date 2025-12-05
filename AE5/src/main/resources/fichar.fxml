@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fichar.FicharController" prefWidth="600" prefHeight="400">
+    <Label text="Fichar Trabajador" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10" alignment="CENTER">
+        <TextField fx:id="tfNombre" promptText="Nombre" prefWidth="150" style="-fx-font-size: 14px;" />
+        <TextField fx:id="tfDni" promptText="DNI" prefWidth="100" style="-fx-font-size: 14px;" />
+        <Button text="Añadir trabajador" onAction="#onAgregarTrabajador" prefWidth="150" style="-fx-font-size: 14px;" />
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <ComboBox fx:id="comboTrabajadores" prefWidth="200" style="-fx-font-size: 14px;" />
+        <Button text="Fichar Entrada" onAction="#onFicharEntrada" prefWidth="120" style="-fx-font-size: 14px;" />
+        <Button text="Fichar Salida" onAction="#onFicharSalida" prefWidth="120" style="-fx-font-size: 14px;" />
+    </HBox>
+
+    <Label fx:id="lblInfo" style="-fx-font-size: 14px;" />
+</VBox>
+

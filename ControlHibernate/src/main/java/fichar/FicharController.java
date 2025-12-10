@@ -1,5 +1,6 @@
 package fichar;
 
+import core.Sesion;
 import core.dao.FichajeDAO;
 import core.dao.TrabajadorDAO;
 import core.model.Fichaje;
@@ -28,12 +29,15 @@ public class FicharController {
 
     @FXML
     private void initialize() {
+
+        Trabajador actual = Sesion.getUsuarioActual();
+
         actualizarCombo();
 
         comboTrabajadores.setConverter(new StringConverter<>() {
             @Override
             public String toString(Trabajador t) {
-                return t != null ? t.getNombre() : "";
+                return t != null ? t.getNombre() + " (" + t.getRol() + ")" : "";
             }
 
             @Override
@@ -41,19 +45,40 @@ public class FicharController {
                 return null;
             }
         });
+
+        if (actual != null && actual.getRol() == Trabajador.Rol.EMPLEADO) {
+            comboTrabajadores.setValue(actual);
+            comboTrabajadores.setDisable(true);
+
+            tfNombre.setDisable(true);
+            tfDni.setDisable(true);
+        } else {
+            comboTrabajadores.setDisable(false);
+            tfNombre.setDisable(false);
+            tfDni.setDisable(false);
+        }
     }
 
     @FXML
     private void onAgregarTrabajador() {
+        Trabajador actual = Sesion.getUsuarioActual();
+        if (actual == null || actual.getRol() != Trabajador.Rol.ADMIN) {
+            lblInfo.setText("Solo un ADMIN puede añadir trabajadores");
+            return;
+        }
+
         String nombre = tfNombre.getText().trim();
         String dni = tfDni.getText().trim();
+
         if (!nombre.isEmpty() && !dni.isEmpty()) {
-            Trabajador t = new Trabajador(nombre, dni);
+            Trabajador t = new Trabajador(nombre, dni, Trabajador.Rol.EMPLEADO);
             trabajadorDAO.save(t);
             tfNombre.clear();
             tfDni.clear();
             actualizarCombo();
             lblInfo.setText("Trabajador añadido");
+        } else {
+            lblInfo.setText("Rellena nombre y DNI");
         }
     }
 
@@ -86,4 +111,3 @@ public class FicharController {
         comboTrabajadores.setItems(FXCollections.observableArrayList(lista));
     }
 }
-

@@ -1,7 +1,9 @@
 package estadisticas;
 
+import core.Sesion;
 import core.dao.FichajeDAO;
 import core.model.Fichaje;
+import core.model.Trabajador;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -39,6 +41,15 @@ public class EstadisticasController {
 
         List<Fichaje> fichajes = fichajeDAO.findAll();
 
+        Trabajador actual = Sesion.getUsuarioActual();
+
+        // Si es empleado, solo usar sus fichajes
+        if (actual != null && actual.getRol() == Trabajador.Rol.EMPLEADO) {
+            fichajes = fichajes.stream()
+                    .filter(f -> f.getTrabajador().getId() == actual.getId())
+                    .collect(Collectors.toList());
+        }
+
         Map<String, List<Fichaje>> fichajesPorEmpleado = fichajes.stream()
                 .collect(Collectors.groupingBy(f -> f.getTrabajador().getNombre()));
 
@@ -69,7 +80,8 @@ public class EstadisticasController {
 
                 if (entrada != null && salida != null) {
 
-                    long minutos = Duration.between(entrada.getHora(), salida.getHora()).toMinutes();
+                    long minutos = Duration.between(
+                            entrada.getHora(), salida.getHora()).toMinutes();
 
                     XYChart.Data<String, Number> dataPoint =
                             new XYChart.Data<>(fecha.toString(), minutos);
@@ -93,4 +105,5 @@ public class EstadisticasController {
         }
     }
 }
+
 

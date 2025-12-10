@@ -1,0 +1,26 @@
+CREATE DATABASE IF NOT EXISTS ControlDeDatos
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE ControlDeDatos;
+
+CREATE TABLE IF NOT EXISTS trabajador (
+    id     INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    dni    VARCHAR(20)  NOT NULL UNIQUE,
+    rol    ENUM('ADMIN','EMPLEADO') NOT NULL DEFAULT 'EMPLEADO'
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS fichaje (
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    trabajador_id INT       NOT NULL,
+    fecha         DATE      NOT NULL,
+    hora          TIME      NOT NULL,
+    tipo          ENUM('ENTRADA','SALIDA') NOT NULL,
+    clima         VARCHAR(100) NOT NULL DEFAULT 'no disponible',
+    CONSTRAINT fk_fichaje_trabajador
+        FOREIGN KEY (trabajador_id)
+        REFERENCES trabajador(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;

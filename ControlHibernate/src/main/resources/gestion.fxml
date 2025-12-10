@@ -1,21 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?xml version="1.0" encoding="utf-8"?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Label?>
-<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.GestionController" prefWidth="900" prefHeight="500">
-    <Label text="Gestión de Fichajes" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+<VBox spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gestion.GestionController"
+      prefWidth="900" prefHeight="500">
+
+    <Label text="Gestión de Fichajes"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
     <TableView fx:id="tablaFichajes" prefWidth="850" prefHeight="400">
         <columns>
             <TableColumn fx:id="colTrabajador" text="Trabajador" prefWidth="150" />
             <TableColumn fx:id="colFecha" text="Fecha" prefWidth="120" />
-            <TableColumn fx:id="colHora" text="Hora" prefWidth="120" />
-            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="120" />
+            <TableColumn fx:id="colHora" text="Horario" prefWidth="160" />
             <TableColumn fx:id="colClima" text="Clima" prefWidth="150" />
             <TableColumn fx:id="colTotalDia" text="Total Día (min)" prefWidth="150" />
         </columns>
     </TableView>
+
+
+    <Button text="Exportar a CSV" onAction="#onExportarCsv"
+            prefWidth="200" />
+
 </VBox>
+
 

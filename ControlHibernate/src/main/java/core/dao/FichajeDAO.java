@@ -31,7 +31,8 @@ public class FichajeDAO {
         List<Fichaje> lista;
 
         try {
-            TypedQuery<Fichaje> query = em.createQuery("FROM Fichaje", Fichaje.class);
+            TypedQuery<Fichaje> query =
+                    em.createQuery("FROM Fichaje", Fichaje.class);
             lista = query.getResultList();
         } finally {
             em.close();
@@ -40,3 +41,4 @@ public class FichajeDAO {
         return lista;
     }
 }
+

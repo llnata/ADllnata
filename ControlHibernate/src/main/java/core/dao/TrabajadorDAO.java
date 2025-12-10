@@ -31,7 +31,8 @@ public class TrabajadorDAO {
         List<Trabajador> lista;
 
         try {
-            TypedQuery<Trabajador> query = em.createQuery("FROM Trabajador", Trabajador.class);
+            TypedQuery<Trabajador> query =
+                    em.createQuery("FROM Trabajador", Trabajador.class);
             lista = query.getResultList();
         } finally {
             em.close();
@@ -39,4 +40,18 @@ public class TrabajadorDAO {
 
         return lista;
     }
+
+    public Trabajador findByDni(String dni) {
+        EntityManager em = HibernateUtil.getEntityManager();
+        try {
+            TypedQuery<Trabajador> query = em.createQuery(
+                    "FROM Trabajador t WHERE t.dni = :dni", Trabajador.class);
+            query.setParameter("dni", dni);
+            // devolver null si no hay resultado
+            return query.getResultList().stream().findFirst().orElse(null);
+        } finally {
+            em.close();
+        }
+    }
 }
+

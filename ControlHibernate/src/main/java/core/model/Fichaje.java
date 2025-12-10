@@ -4,38 +4,30 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 @Entity
 @Table(name = "fichaje")
 public class Fichaje {
 
+    public enum Tipo {ENTRADA, SALIDA}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     @ManyToOne
     @JoinColumn(name = "trabajador_id")
     private Trabajador trabajador;
 
-
     private LocalDate fecha;
     private LocalTime hora;
-
 
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
 
-
     private String clima;
-
-    public enum Tipo {ENTRADA, SALIDA}
-
 
     public Fichaje() {
     }
-
 
     public Fichaje(Trabajador t, LocalDate fecha, LocalTime hora, Tipo tipo, String clima) {
         this.trabajador = t;
@@ -93,3 +85,4 @@ public class Fichaje {
         this.clima = clima;
     }
 }
+

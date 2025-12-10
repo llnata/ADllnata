@@ -1,17 +1,23 @@
+// main/MainApp.java
 package main;
 
+import core.Sesion;
+import core.model.Trabajador;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
 
 public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        Trabajador actual = Sesion.getUsuarioActual();
+
         VBox root = new VBox(20);
         root.setAlignment(Pos.CENTER);
 
@@ -38,6 +44,9 @@ public class MainApp extends Application {
         btnEstadisticas.setOnAction(e -> abrirFXML("/estadisticas.fxml"));
         btnSalir.setOnAction(e -> stage.close());
 
+        // YA NO deshabilitamos Gestión para empleados:
+        // la restricción de ver solo lo suyo se hace dentro de GestionController
+
         root.getChildren().addAll(lblTitulo, btnFichar, btnGestion, btnEstadisticas, btnSalir);
 
         stage.setScene(new Scene(root, 400, 400));
@@ -61,6 +70,3 @@ public class MainApp extends Application {
         launch();
     }
 }
-
-
-
